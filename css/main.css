@@ -1,0 +1,24 @@
+body {
+    height: 100vh;
+
+    color: #FFF;
+
+    padding: 2em;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+}
+
+#main {
+    background-color: #000;
+
+    width: 800px;
+    height: 80%;
+
+    margin: auto;
+    padding: 2em;
+    border-radius: 2em;
+
+    box-sizing: border-box;
+}

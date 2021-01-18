@@ -1,6 +1,17 @@
-function resetHeight(){
+function resetHeight() {
     document.body.style.height = window.innerHeight + 'px';
-    document.querySelector('#main').style.height = '100%';
+
+    var mq1 = window.matchMedia( "(max-width: 600px)" );
+    if (mq1.matches) { // mobile portrait
+        document.querySelector('#main').style.height = '100%';
+    } else {
+        var mq2 = window.matchMedia( "(min-height: 700px)" );
+        if (mq2.matches) { // desktop
+            document.querySelector('#main').style.height = '600px';
+        } else { // mobile landscape
+            document.querySelector('#main').style.height = '100%';
+        }
+    }
 }
 window.addEventListener('resize', resetHeight);
 resetHeight();
@@ -25,12 +36,13 @@ const options = {
     }
 };
 
+const typed = new Typed('#typed', options);
+
 const getImages = async () => {
-    await fetch('../images/background-image-landscape.jpg')
+    await fetch('../images/background-image.jpg')
         .then( res => {
-            document.querySelector('body').style.backgroundImage = 'url("../images/background-image-landscape.jpg")';
-        })
-        .then( err => console.log(err) );
+            document.querySelector('body').style.backgroundImage = 'url("../images/background-image.jpg")';
+        });
 };
 
-const typed = new Typed('#typed', options);
+getImages();

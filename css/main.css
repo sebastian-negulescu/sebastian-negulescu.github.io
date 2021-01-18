@@ -11,7 +11,7 @@ body {
     display: flex;
     align-items: center;
 
-    background-image: url("../images/background-image-portrait-min.jpeg");
+    /*background-image: url("../images/background-image-min.jpg");*/
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -37,6 +37,8 @@ ul {
     border-radius: 2em;
 
     box-sizing: border-box;
+
+    overflow: auto;
 }
 
 .green {
@@ -58,24 +60,12 @@ ul {
     100% { opacity: 1; }
 }
 
-@media screen and (min-width: 600px) {
+@media (min-width: 600px) {
     body {
         font-size: 18px;
-
-        height: 100vh;
-
-        background-image: url("../images/background-image-landscape-min.jpg");
     }
 
     #main {
         max-width: 800px;
-        height: 600px;
-    }
-
-    @media screen and (max-height: 700px) {
-        #main {
-            height: 100%;
-            overflow: scroll;
-        }
     }
 } 

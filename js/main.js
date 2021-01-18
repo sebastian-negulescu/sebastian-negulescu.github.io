@@ -1,4 +1,4 @@
-function resetHeight() {
+const resetHeight = () => {
     document.body.style.height = window.innerHeight + 'px';
 
     var mq1 = window.matchMedia( "(max-width: 600px)" );
@@ -13,8 +13,17 @@ function resetHeight() {
         }
     }
 }
-window.addEventListener('resize', resetHeight);
+window.addEventListener('resize', resetHeight); // add height options
 resetHeight();
+
+const getImages = async () => {
+    await fetch('../images/background-image.jpg')
+        .then( res => {
+            document.querySelector('body').style.backgroundImage = 'url("../images/background-image.jpg")';
+        });
+};
+
+getImages(); // load background
 
 const fileUrl = '../welcome.file';
 
@@ -37,12 +46,3 @@ const options = {
 };
 
 const typed = new Typed('#typed', options);
-
-const getImages = async () => {
-    await fetch('../images/background-image.jpg')
-        .then( res => {
-            document.querySelector('body').style.backgroundImage = 'url("../images/background-image.jpg")';
-        });
-};
-
-getImages();

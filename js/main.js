@@ -18,4 +18,12 @@ const options = {
     }
 };
 
+const getImages = async () => {
+    await fetch('../images/background-image-landscape.jpg')
+        .then( res => {
+            document.querySelector('body').style.backgroundImage = 'url("../images/background-image-landscape.jpg")';
+        })
+        .then( err => console.log(err) );
+};
+
 const typed = new Typed('#typed', options);

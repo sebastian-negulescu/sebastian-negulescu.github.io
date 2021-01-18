@@ -11,7 +11,7 @@ body {
     display: flex;
     align-items: center;
 
-    background-image: url("../images/background-image-portrait.jpeg");
+    background-image: url("../images/background-image-portrait-min.jpeg");
     background-position: center;
     background-size: cover;
 }
@@ -62,7 +62,7 @@ ul {
     body {
         font-size: 18px;
 
-        background-image: url("../images/background-image-landscape.jpg");
+        background-image: url("../images/background-image-landscape-min.jpg");
     }
 
     #main {

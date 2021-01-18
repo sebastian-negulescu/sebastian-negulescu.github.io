@@ -3,7 +3,7 @@ const fileUrl = '../welcome.file';
 const options = {
     strings: ['display ^750welcome.file'],
     autoInsertCss: false,
-    startDelay: 1000,
+    startDelay: 2000,
     typeSpeed: 100,
     onComplete: (self) => {
         const cursor = document.querySelector('.typed-cursor');

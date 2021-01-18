@@ -1,3 +1,10 @@
+function resetHeight(){
+    document.body.style.height = window.innerHeight + 'px';
+    document.querySelector('#main').style.height = '100%';
+}
+window.addEventListener('resize', resetHeight);
+resetHeight();
+
 const fileUrl = '../welcome.file';
 
 const options = {

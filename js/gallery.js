@@ -18,9 +18,9 @@ const createPictures = () => {
     const body = document.querySelector('body');
     for (let i = 1; i <= amount; ++i) {
         const picture = document.createElement('div');
-        const image = `./images/gallery-${i}.jpg`;
+        const image = `./gallery-images/compressed/gallery-${i}.JPG`;
         load(image).then(() => {
-            const ind = parseInt(image.replace('./images/gallery-', '').replace('.jpg', ''));
+            const ind = parseInt(image.replace('./gallery-images/compressed/gallery-', '').replace('.JPG', ''));
 
             picture.style.backgroundImage = 'url(' + image + ')';
             picture.onclick = (event) => {
@@ -71,7 +71,7 @@ const openFullscreen = (ind) => {
     document.querySelector('#loading').style.display = 'block';
     document.querySelector('#fullscreen').style.display = 'flex';
     document.querySelector('body').style.overflow = 'hidden';
-    const image = `./images-full/full-${ind}.jpg`;
+    const image = `./gallery-images/full/full-${ind}.JPG`;
     load(image).then(() => {
         document.querySelector('#fullPicture').src = image;
         document.querySelector('#fullPicture').style.display = 'block';

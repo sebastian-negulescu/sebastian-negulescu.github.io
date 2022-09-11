@@ -9,7 +9,7 @@ load = (src) => {
     });
 };
 
-const image = './images/background-image-min.jpg';
+const image = './images/background-image-min.JPG';
 load(image).then(() => {
     const body = document.querySelector('body');
     body.style.backgroundImage = 'url(' + image + ')';

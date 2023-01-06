@@ -1,5 +1,22 @@
-// for loading images
+// useful constants
+const loading = document.querySelector('#loading');
+const directory = document.querySelector('#directory');
+const gallery = document.querySelector('#gallery');
+const body = document.querySelector('body');
 
+// defined gallery directories
+const gallery_map = new Map([
+    ['bruce-peninsula', 12],
+    ['drive-to-west', 16],
+    ['grundy', 12],
+    ['lake-louise-jasper', 39],
+    ['nova-scotia', 21],
+    ['romania', 23],
+    ['tremblant', 13],
+    ['washington-boston', 12],
+]);
+
+// for loading images
 load = (src) => {
     return new Promise((resolve, reject) => {
         const image = new Image();
@@ -9,37 +26,84 @@ load = (src) => {
     });
 };
 
+// open loading screen
+const openLoading = () => {
+    loading.style.display = 'block';
+};
+
+// close loading screen
+const closeLoading = () => {
+    loading.style.display = 'none';
+};
+
+// open directory display
+const openDirectory = () => {
+    directory.style.display = 'block';
+};
+
+// close directory display
+const closeDirectory = () => {
+    directory.style.display = 'none';
+};
+
+const closeGallery = () => {
+    document.querySelector('nav').children[0].style.display = 'none';
+    let child = gallery.lastElementChild;
+    while (child) {
+        gallery.removeChild(child);
+        child = gallery.lastElementChild;
+    }
+    gallery.style.display = 'none';
+    openDirectory();
+};
+
+// for creating the gallery folders
+const initializeDirectory = () => {
+    const list = document.createElement('ul');
+    gallery_map.forEach((_, key) => {
+        const item = document.createElement('li');
+        item.onclick = () => { 
+            openGallery(key); 
+        }
+        item.innerHTML = key.replaceAll('-', ' ');
+        list.appendChild(item);
+    });
+    directory.appendChild(list);
+};
+
+initializeDirectory();
+
 // for creating the gallery pictures
 
-const createPictures = () => {
-    const amount = 18;
-    let sum = 0;
-    const desiredSum = amount * (amount + 1) / 2;
-    const body = document.querySelector('body');
-    for (let i = 1; i <= amount; ++i) {
+const openGallery = (dir) => {
+    openLoading();
+    closeDirectory();
+
+    const amount = gallery_map.get(dir);
+    let counter = 0;
+
+    for (let i = 0; i < amount; ++i) {
         const picture = document.createElement('div');
-        const image = `./gallery-images/compressed/gallery-${i}.JPG`;
-        load(image).then(() => {
-            const ind = parseInt(image.replace('./gallery-images/compressed/gallery-', '').replace('.JPG', ''));
+        const imagePath = `./images/min/${dir}/IMG_${i}.JPG`;
 
-            picture.style.backgroundImage = 'url(' + image + ')';
+        load(imagePath).then(() => {
+            picture.style.backgroundImage = 'url(' + imagePath + ')';
             picture.onclick = (event) => {
-                const attr = event.target.style.backgroundImage;
-                const i = parseInt(attr.slice(attr.lastIndexOf('gallery-') + 8, -6));
-                openFullscreen(i);
+                const fullPath = event.target.style.backgroundImage
+                    .split('"')[1].replace('min', 'full');
+                openFullscreen(fullPath);
             };
-            document.querySelector('#gallery').appendChild(picture);
+            gallery.appendChild(picture);
 
-            sum += ind;
-            if (sum == desiredSum) {
-                body.style.display = 'block';
-                document.querySelector('#loading').style.display = 'none';
+            ++counter;
+            if (counter == amount) {
+                document.querySelector('nav').children[0].style.display = 'block';
+                gallery.style.display = 'grid';
+                closeLoading();
             }
         });
     }
 };
-
-createPictures();
 
 // for changing the row sizes in the gallery
 
@@ -67,15 +131,14 @@ modifyGallery();
 
 // open fullscreen image
 
-const openFullscreen = (ind) => {
-    document.querySelector('#loading').style.display = 'block';
+const openFullscreen = (path) => {
+    openLoading();
     document.querySelector('#fullscreen').style.display = 'flex';
     document.querySelector('body').style.overflow = 'hidden';
-    const image = `./gallery-images/full/full-${ind}.JPG`;
-    load(image).then(() => {
-        document.querySelector('#fullPicture').src = image;
+    load(path).then(() => {
+        document.querySelector('#fullPicture').src = path;
         document.querySelector('#fullPicture').style.display = 'block';
-        document.querySelector('#loading').style.display = 'none';
+        closeLoading();
     });
 };
 

@@ -1,6 +1,7 @@
 // useful constants
 const loading = document.querySelector('#loading');
 const directory = document.querySelector('#directory');
+const galleryInfo = document.querySelector('#galleryInfo');
 const gallery = document.querySelector('#gallery');
 const body = document.querySelector('body');
 
@@ -47,6 +48,7 @@ const closeDirectory = () => {
 };
 
 const closeGallery = () => {
+    galleryInfo.style.display = 'none';
     document.querySelector('nav').children[0].style.display = 'none';
     let child = gallery.lastElementChild;
     while (child) {
@@ -97,7 +99,8 @@ const openGallery = (dir) => {
 
             ++counter;
             if (counter == amount) {
-                document.querySelector('nav').children[0].style.display = 'block';
+                galleryInfo.innerHTML = dir;
+                galleryInfo.style.display = 'block';
                 gallery.style.display = 'grid';
                 closeLoading();
             }

@@ -6,7 +6,23 @@ body {
     box-sizing: border-box;
 }
 
-#directory {
+#directory > ul {
+    margin: auto;
+
+    width: 100%;
+    max-width: 200px;
+
+    line-height: 1.25em;
+    padding: 1em;
+
+    border-style: solid;
+    border-radius: 1em;
+    border-color: #000000;
+    border-width: 2px;
+}
+
+#galleryInfo {
+    display: none;
 }
 
 #gallery {
@@ -65,20 +81,6 @@ body {
     display: none;
 }
 
-nav > button {
-    position: fixed;
-    left: 0;
-    border: none;
-    background: none;
-    font-size: 2em;
-    margin: 1em;
-    width: 1em;
-    height: 1em;
-    line-height: 1em;
-
-    display: none;
-}
-
 #fullscreen > button {
     position: fixed;
     top: 0;
@@ -101,9 +103,7 @@ nav {
 }
 
 nav img {
-    width: 6em;
-    height: 6em;
-    border-radius: 3em;
+    display: none;
 }
 
 nav a:link, a:visited, a:hover, a:active {
@@ -118,6 +118,13 @@ div {
 }
 
 @media (min-width: 600px) {
+    nav img {
+        display: inline;
+        width: 4em;
+        height: 4em;
+        border-radius: 2em;
+    }
+
     body {
         font-size: 18px;
     }

@@ -61,9 +61,7 @@ nav {
 }
 
 nav img {
-    width: 6em;
-    height: 6em;
-    border-radius: 3em;
+    display: none;
 }
 
 nav a:link, nav a:visited, nav a:hover, nav a:active {
@@ -114,6 +112,13 @@ nav a:link, nav a:visited, nav a:hover, nav a:active {
 
     nav {
         max-width: 800px;
+    }
+
+    nav img {
+        display: inline;
+        width: 4em;
+        height: 4em;
+        border-radius: 2em;
     }
 
     #main {

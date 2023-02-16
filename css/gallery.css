@@ -6,7 +6,7 @@ body {
     box-sizing: border-box;
 }
 
-#directory > ul {
+#directory {
     margin: auto;
 
     width: 100%;
@@ -21,8 +21,21 @@ body {
     border-width: 2px;
 }
 
-#galleryInfo {
+#galleryHeader {
+    margin: auto;
     display: none;
+
+    width: 100%;
+    max-width: 1500px;
+}
+
+#galleryHeader > button {
+    border: none;
+    background: none;
+
+    font-weight: bolder;
+
+    padding: 0;
 }
 
 #gallery {
@@ -102,7 +115,7 @@ nav {
     margin: 0 auto 1em auto;
 }
 
-nav img {
+nav > img {
     display: none;
 }
 
@@ -118,7 +131,7 @@ div {
 }
 
 @media (min-width: 600px) {
-    nav img {
+    nav > img {
         display: inline;
         width: 4em;
         height: 4em;

@@ -10,7 +10,7 @@ body {
     margin: auto;
 
     width: 100%;
-    max-width: 200px;
+    max-width: 250px;
 
     line-height: 1.25em;
     padding: 1em;
@@ -19,6 +19,11 @@ body {
     border-radius: 1em;
     border-color: #000000;
     border-width: 2px;
+}
+
+#directory > ul > li:hover {
+    cursor: pointer;
+    background-color: #FFFF00;
 }
 
 #galleryHeader {
@@ -33,9 +38,16 @@ body {
     border: none;
     background: none;
 
+    cursor: pointer;
+
     font-weight: bolder;
 
     padding: 0;
+}
+
+#galleryHeader > button:hover {
+    cursor: pointer;
+    background-color: #FFFF00;
 }
 
 #gallery {
@@ -46,6 +58,10 @@ body {
     max-width: 1500px;
 
     gap: 2em;
+}
+
+#gallery > div:hover {
+    cursor: pointer;
 }
 
 #fullscreen {

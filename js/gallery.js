@@ -6,20 +6,10 @@ const galleryName = document.querySelector('#galleryName');
 const gallery = document.querySelector('#gallery');
 const body = document.querySelector('body');
 
-// defined gallery directories
-const gallery_map = new Map([
-    ['bruce-peninsula', 12],
-    ['drive-to-west', 16],
-    ['grundy', 12],
-    ['lake-louise-jasper', 39],
-    ['nova-scotia', 21],
-    ['romania', 23],
-    ['tremblant', 13],
-    ['washington-boston', 12],
-]);
+var gallery_map;
 
 // for loading images
-load = (src) => {
+const load = (src) => {
     return new Promise((resolve, reject) => {
         const image = new Image();
         image.addEventListener('load', resolve);
@@ -48,17 +38,6 @@ const closeDirectory = () => {
     directory.style.display = 'none';
 };
 
-const closeGallery = () => {
-    galleryHeader.style.display = 'none';
-    let child = gallery.lastElementChild;
-    while (child) {
-        gallery.removeChild(child);
-        child = gallery.lastElementChild;
-    }
-    gallery.style.display = 'none';
-    openDirectory();
-};
-
 // for creating the gallery folders
 const initializeDirectory = () => {
     const list = document.createElement('ul');
@@ -73,43 +52,47 @@ const initializeDirectory = () => {
     directory.appendChild(list);
 };
 
-initializeDirectory();
 
 // for creating the gallery pictures
-
 const openGallery = (dir) => {
     openLoading();
     closeDirectory();
 
-    const amount = gallery_map.get(dir);
-    let counter = 0;
-
-    for (let i = 0; i < amount; ++i) {
+    const names = gallery_map.get(dir);
+    names["thumbnails"].forEach((name, i) => {
+        const imagePath = `./gallery/${dir}/thumbnails/${name}`;
         const picture = document.createElement('div');
-        const imagePath = `./images/min/${dir}/IMG_${i}.JPG`;
 
         load(imagePath).then(() => {
-            picture.style.backgroundImage = 'url(' + imagePath + ')';
+            picture.style.backgroundImage = `url('${imagePath}')`;
             picture.onclick = (event) => {
                 const fullPath = event.target.style.backgroundImage
-                    .split('"')[1].replace('min', 'full');
+                    .split('"')[1].replace('thumbnails', 'images');
                 openFullscreen(fullPath);
             };
             gallery.appendChild(picture);
+         });
 
-            ++counter;
-            if (counter == amount) {
-                galleryName.innerHTML = dir;
-                galleryHeader.style.display = 'block';
-                gallery.style.display = 'grid';
-                closeLoading();
-            }
-        });
+    });
+
+    galleryName.innerHTML = dir;
+    galleryHeader.style.display = 'block';
+    gallery.style.display = 'grid';
+    closeLoading();
+};
+
+const closeGallery = () => {
+    galleryHeader.style.display = 'none';
+    let child = gallery.lastElementChild;
+    while (child) {
+        gallery.removeChild(child);
+        child = gallery.lastElementChild;
     }
+    gallery.style.display = 'none';
+    openDirectory();
 };
 
 // for changing the row sizes in the gallery
-
 const modifyGallery = () => {
     const gallery = document.querySelector('#gallery');
     if (window.innerWidth < 1500) {
@@ -130,10 +113,8 @@ const modifyGallery = () => {
 };
 
 window.addEventListener('resize', modifyGallery);
-modifyGallery();
 
 // open fullscreen image
-
 const openFullscreen = (path) => {
     openLoading();
     document.querySelector('#fullscreen').style.display = 'flex';
@@ -146,9 +127,19 @@ const openFullscreen = (path) => {
 };
 
 // close fullscreen image
-
 const closeFullscreen = () => {
     document.querySelector('#fullscreen').style.display = 'none';
     document.querySelector('#fullPicture').style.display = 'none';
     document.querySelector('body').style.overflow = 'auto';
 };
+
+const main = async () => {
+    const gallery = await fetch("./manifest.json")
+        .then(res => res.json())
+        .catch(err => console.log("error"));
+    gallery_map = new Map(Object.entries(gallery));
+    initializeDirectory();
+    modifyGallery();
+};
+
+main();
